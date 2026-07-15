@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#16a34a">
+  <title>Spesa Intelligente</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">PWA per ogni dispositivo</p>
+      <h1>Spesa Intelligente</h1>
+      <p>Organizza la lista, confronta prezzi e trova le offerte migliori vicino a te.</p>
+    </div>
+    <button id="installButton" class="ghost" hidden>Installa app</button>
+  </header>
+
+  <main>
+    <section class="panel hero">
+      <div>
+        <h2>La tua prossima spesa, ottimizzata</h2>
+        <p>Aggiungi prodotti, registra supermercati e confronta il totale con o senza carta fedeltà.</p>
+      </div>
+      <div class="hero-card">
+        <span id="bestStore">—</span>
+        <small>supermercato consigliato</small>
+      </div>
+    </section>
+
+    <section class="grid">
+      <form id="itemForm" class="panel stack">
+        <h2>Aggiungi prodotto</h2>
+        <label>Nome prodotto<input id="itemName" required placeholder="Pasta, latte, mele..."></label>
+        <label>Quantità<input id="itemQuantity" type="number" min="1" value="1"></label>
+        <label>Supermercato<input id="itemStore" required placeholder="Coop, Conad, Lidl..."></label>
+        <label>Prezzo (€)<input id="itemPrice" type="number" min="0" step="0.01" required placeholder="1.99"></label>
+        <label class="check"><input id="itemLoyalty" type="checkbox"> Richiede carta fedeltà</label>
+        <button type="submit">Aggiungi alla lista</button>
+      </form>
+
+      <section class="panel stack">
+        <div class="toolbar">
+          <h2>Lista spesa</h2>
+          <label class="check"><input id="hideLoyalty" type="checkbox"> Senza carta fedeltà</label>
+        </div>
+        <ul id="shoppingList" class="shopping-list"></ul>
+      </section>
+    </section>
+
+    <section class="panel stack">
+      <h2>Confronto supermercati</h2>
+      <div id="comparison" class="comparison"></div>
+    </section>
+  </main>
+
+  <template id="itemTemplate">
+    <li>
+      <div>
+        <strong data-name></strong>
+        <span data-meta></span>
+      </div>
+      <button data-remove aria-label="Rimuovi prodotto">×</button>
+    </li>
+  </template>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
