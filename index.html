@@ -34,18 +34,24 @@
     <section class="grid">
       <form id="itemForm" class="panel stack">
         <h2>Aggiungi prodotto</h2>
-        <label>Nome prodotto
-          <input id="itemName" name="name" required list="productSuggestions" autocomplete="off" placeholder="Latte Granarolo intero 1 litro">
-          <small>Esempi: Pasta Barilla spaghetti 500 g, Olio extravergine, Detersivo lavatrice.</small>
+        <button type="button" id="scanButton" class="scan-primary">📷 SCANSIONA CODICE A BARRE</button>
+        <label>Cerca prodotto per nome
+          <input id="itemName" name="name" list="productSuggestions" autocomplete="off" placeholder="Latte Granarolo intero 1 litro">
+          <small>Esempi: Pasta Barilla spaghetti 500 g, Olio extravergine Monini 1 litro.</small>
         </label>
         <datalist id="productSuggestions"></datalist>
+        <button type="button" id="voiceButton" class="ghost">🎙️ RICERCA VOCALE</button>
         <label>Quantità</label>
         <div class="quantity-control" aria-label="Selettore quantità">
           <button type="button" id="decreaseQuantity" class="ghost" aria-label="Diminuisci quantità">−</button>
           <input id="itemQuantity" name="quantity" type="number" min="1" value="1" inputmode="numeric">
           <button type="button" id="increaseQuantity" class="ghost" aria-label="Aumenta quantità">+</button>
         </div>
-        <button type="submit">CERCA IL PREZZO MIGLIORE</button>
+        <label>Codice manuale o da galleria
+          <input id="manualBarcode" placeholder="EAN-13, EAN-8, UPC-A, UPC-E o Code 128">
+        </label>
+        <button type="submit">AGGIUNGI ALLA LISTA</button>
+        <div id="scanResult" class="stack"></div>
         <p id="locationStatus" class="muted"></p>
         <div id="manualLocation" class="manual-location" hidden>
           <label>Città o CAP
@@ -83,6 +89,11 @@
     </section>
 
     <section class="panel stack">
+      <h2>PRODOTTI RECENTI</h2>
+      <div id="recentProducts" class="recent-grid"></div>
+    </section>
+
+    <section class="panel stack">
       <h2>LE MIE CARTE FEDELTÀ</h2>
       <p class="muted">Seleziona le carte possedute: il prezzo fedeltà sarà usato solo quando disponibile per te.</p>
       <div id="loyaltyCards" class="loyalty-grid"></div>
@@ -93,6 +104,19 @@
       <div id="optimizationResults" class="optimization"></div>
     </section>
   </main>
+
+  <div id="scannerOverlay" class="scanner-overlay" hidden>
+    <div class="scanner-shell">
+      <video id="scannerVideo" autoplay muted playsinline></video>
+      <div class="scan-frame" aria-hidden="true"></div>
+      <p id="scannerMessage">Inquadra il codice a barre del prodotto</p>
+      <div class="scanner-actions">
+        <button type="button" id="cancelScan" class="ghost">ANNULLA</button>
+        <button type="button" id="torchToggle" class="ghost">TORCIA</button>
+        <label class="gallery-button">SCEGLI FOTO<input id="galleryInput" type="file" accept="image/*" hidden></label>
+      </div>
+    </div>
+  </div>
 
   <template id="itemTemplate">
     <li><div><strong data-name></strong><span data-meta></span></div><button data-remove aria-label="Rimuovi prodotto">×</button></li>
