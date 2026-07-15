@@ -1,0 +1,12 @@
+{
+  "name": "Spesa Intelligente",
+  "short_name": "Spesa",
+  "description": "Lista della spesa con confronto prezzi e supermercati.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f4f7f2",
+  "theme_color": "#16a34a",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
